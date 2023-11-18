@@ -1,0 +1,10 @@
+Project
+git clone https://github.com/Pablo-RoVi/Dumbo-Supermarket.git
+
+########################################################################
+Backend
+composer install
+
+########################################################################
+Frontend
+npm install
