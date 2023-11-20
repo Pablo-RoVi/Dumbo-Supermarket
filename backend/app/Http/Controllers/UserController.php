@@ -16,7 +16,6 @@ class UserController extends Controller{
 
     public function store(Request $request) {
 
-
         // Verify if all fields are on request
         if (!isset($request['name']) || !isset($request['lastNames']) || !isset($request['email']) || !isset($request['identification']) || !isset($request['pointsEarned'])) {
             return response()->json([
@@ -28,6 +27,13 @@ class UserController extends Controller{
         if (User::where('identification', $request['identification'])->exists()) {
             return response()->json([
                 'message' => 'User already exists',
+            ], 409);
+        }
+
+        // Verify if identification follows the specified format
+        if (!preg_match('/^[0-9]{1,2}\.[0-9]{3}\.[0-9]{3}-[0-9kK]$/', $request['identification'])) {
+            return response()->json([
+                'message' => 'Invalid identification format',
             ], 409);
         }
 
