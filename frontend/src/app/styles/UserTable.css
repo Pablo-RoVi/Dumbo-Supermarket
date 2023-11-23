@@ -1,0 +1,10 @@
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px; /* Ajusta el margen según sea necesario */
+}
+
+.button-color {
+    background-color: #b7c62d;
+    color: white;
+}

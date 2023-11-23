@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use Illuminate\Validation\ValidationException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class LoginController extends Controller
 {
@@ -25,14 +26,14 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             // Authentication passed
             $user = Auth::user();
-            $token = $user->createToken('authToken')->plainTextToken;
 
-            // Return user and token
-            return response()->json([
-                'message' => 'Login successful',
-                'user' => $user,
-                'token' => $token,
-            ], 200);
+            // Generate token
+            if ($token = JWTAuth::fromUser($user)) {
+                return response()->json(['token' => $token], 200);
+            }
+
+            // Return user error
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
         // If credentials are incorrect return error
         else {

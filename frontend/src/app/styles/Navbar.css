@@ -1,0 +1,9 @@
+.navbar-primary-green {
+  background-color: #018f45;
+  color: white;
+}
+
+.navbar-primary-green .navbar-brand,
+.navbar-primary-green .navbar-nav .nav-link {
+  color: white !important;
+}

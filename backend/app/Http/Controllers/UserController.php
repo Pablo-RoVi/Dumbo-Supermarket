@@ -4,16 +4,47 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
+use App\Models\RoleUser;
 
 class UserController extends Controller{
 
-    public function index() {
+    // Return all client users
+    public function index()
+    {
+        // Find role client
+        $role = Role::where('name', 'client')->first();
 
-        // Return all users
-        return User::all();
+        // Verify if role exists
+        if (!$role) {
+            return response()->json([
+                'message' => 'Role not exists',
+            ], 409);
+        }
 
+        // Find all users with role client
+        $userRole = RoleUser::where('roleId', $role->id)->get();
+
+        // Verify if client users exists
+        if (!$userRole) {
+            return response()->json([
+                'message' => 'Users not exists',
+            ], 409);
+        }
+
+        $users = User::whereIn('id', $userRole->pluck('userId'))->get();
+
+        // Verify if users exists
+        if (!$users) {
+            return response()->json([
+                'message' => 'Users not exists',
+            ], 409);
+        }
+
+        return $users;
     }
 
+    // Create user
     public function store(Request $request) {
 
         // Verify if all fields are on request
@@ -23,17 +54,24 @@ class UserController extends Controller{
             ], 409);
         }
 
-        // Verify if identificaction user exists
-        if (User::where('identification', $request['identification'])->exists()) {
-            return response()->json([
-                'message' => 'User already exists',
-            ], 409);
-        }
-
         // Verify if identification follows the specified format
         if (!preg_match('/^[0-9]{1,2}\.[0-9]{3}\.[0-9]{3}-[0-9kK]$/', $request['identification'])) {
             return response()->json([
                 'message' => 'Invalid identification format',
+            ], 409);
+        }
+
+        // Verify if email follows the specified format
+        if (!preg_match('/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/', $request['email'])) {
+            return response()->json([
+                'message' => 'Invalid email format',
+            ], 409);
+        }
+
+        // Verify if identificaction user exists
+        if (User::where('identification', $request['identification'])->exists()) {
+            return response()->json([
+                'message' => 'User already exists',
             ], 409);
         }
 
@@ -78,6 +116,7 @@ class UserController extends Controller{
 
     }
 
+    // Update user by identification
     public function update(Request $request, $identification) {
 
         // Find user by identification
@@ -107,6 +146,7 @@ class UserController extends Controller{
 
     }
 
+    // Delete user by identification
     public function destroy($identification) {
 
         // Find user by identification
@@ -119,6 +159,16 @@ class UserController extends Controller{
             ], 409);
         }
 
+        $roleUser = RoleUser::where('userId', $user->id)->first();
+
+        if(!$roleUser) {
+            return response()->json([
+                'message' => 'User not exists',
+            ], 409);
+        }
+
+        $roleUser->delete();
+
         $user->delete();
 
         return response()->json([
@@ -127,6 +177,7 @@ class UserController extends Controller{
 
     }
 
+    // Show user by identification or email
     public function show($identification) {
 
         // Find user by identification or email
