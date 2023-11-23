@@ -110,6 +110,11 @@ class UserController extends Controller{
             'password' => bcrypt($request['password']),
         ]);
 
+        RoleUser::create([
+            'userId' => User::where('identification', $request['identification'])->first()->id,
+            'roleId' => Role::where('name', 'client')->first()->id,
+        ]);
+
         return response()->json([
             'message' => 'User created successfully',
         ]);
