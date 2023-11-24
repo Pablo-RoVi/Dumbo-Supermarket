@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Routes as Router, Navigate, Outlet, Route } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Login from "../../features/auth/Login";
 import UserTable from "../../features/home/UserTable";
+import { AuthContext } from "../context/AuthContext";
 
 const PrivateRoutes = () => {
-  const authenticated = localStorage.getItem("token");
+  const { authenticated } = useContext(AuthContext);
   if (!authenticated) {
     return <Navigate to="/" replace />;
   }

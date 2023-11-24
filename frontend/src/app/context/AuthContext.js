@@ -1,27 +1,20 @@
-import React, { createContext, useState, useEffect } from 'react';
-import Agent from '../api/agent';
+import React, { createContext, useState } from "react";
 
 const AuthContext = createContext({
   authenticated: false,
   setAuthenticated: () => {},
+  token: "",
+  setToken: () => {},
 });
 
 const AuthProvider = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
-
-  useEffect(() => {
-    // Check for the existence of the token when the application loads
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      // Assign the token to the agent
-      Agent.token = storedToken;
-      // Set authentication to true
-      setAuthenticated(true);
-    }
-  }, []);
+  const [token, setToken] = useState("");
 
   return (
-    <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
+    <AuthContext.Provider
+      value={{ authenticated, setAuthenticated, token, setToken }}
+    >
       {children}
     </AuthContext.Provider>
   );

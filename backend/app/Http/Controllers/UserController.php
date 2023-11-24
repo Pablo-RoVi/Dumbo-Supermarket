@@ -53,6 +53,13 @@ class UserController extends Controller{
             ], 409);
         }
 
+        // Verify if name, lastNames are letters
+        if (!preg_match('/^[a-zA-Z ]+$/', $request['name']) || !preg_match('/^[a-zA-Z ]+$/', $request['lastNames'])) {
+            return response()->json([
+                'message' => 'Name and last names must be letters',
+            ], 409);
+        }
+
         // Verify if identification follows the specified format
         if (!preg_match('/^[0-9]{1,2}\.[0-9]{3}\.[0-9]{3}-[0-9kK]$/', $request['identification'])) {
             return response()->json([
@@ -78,6 +85,13 @@ class UserController extends Controller{
         if (User::where('email', $request['email'])->exists()) {
             return response()->json([
                 'message' => 'Email already exists',
+            ], 409);
+        }
+
+        // Verify if name user has two names
+        if (count(explode(" ", $request['name'])) < 2) {
+            return response()->json([
+                'message' => 'Name must have two words',
             ], 409);
         }
 
@@ -122,6 +136,41 @@ class UserController extends Controller{
 
     // Update user by identification
     public function update(Request $request, $identification) {
+
+        // Verify if identification follows the specified format
+        if (!preg_match('/^[0-9]{1,2}\.[0-9]{3}\.[0-9]{3}-[0-9kK]$/', $request['identification'])) {
+            return response()->json([
+                'message' => 'Invalid identification format',
+            ], 409);
+        }
+
+        // Verify if name, lastNames are letters
+        if (!preg_match('/^[a-zA-Z ]+$/', $request['name']) || !preg_match('/^[a-zA-Z ]+$/', $request['lastNames'])) {
+            return response()->json([
+                'message' => 'Name and last names must be letters',
+            ], 409);
+        }
+
+        // Verify if email follows the specified format
+        if (!preg_match('/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/', $request['email'])) {
+            return response()->json([
+                'message' => 'Invalid email format',
+            ], 409);
+        }
+
+        // Verify if name user has two names
+        if (count(explode(" ", $request['name'])) < 2) {
+            return response()->json([
+                'message' => 'Name must have two words',
+            ], 409);
+        }
+
+        // Verify if lastNames user has two lastNames
+        if (count(explode(" ", $request['lastNames'])) < 2) {
+            return response()->json([
+                'message' => 'Last names must have two words',
+            ], 409);
+        }
 
         // Find user by identification
         $user = User::where('identification', $identification)->first();

@@ -5,32 +5,45 @@ import { useNavigate } from "react-router-dom";
 // @ts-ignore
 
 const Login = () => {
-  const { setAuthenticated } = useContext(AuthContext);
+  // States
+  const { setAuthenticated, setToken } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  // Credentials
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  // Error and invalid handling
   const [error, setError] = useState(false);
+  const [invalid, setInvalid] = useState(false);
 
   const handleLogin = (e) => {
+    // Prevent page reload
     e.preventDefault();
 
+    // Validate inputs are not empty
     if (!username || !password) {
       setError(true);
       return;
     }
 
+    // Reset error and invalid state
     setError(false);
+    setInvalid(false);
 
+    // Send login request
     agent.requests
       .post("login", { username, password })
       .then((response) => {
         console.log("Login successful!");
-        agent.token = response;
-        localStorage.setItem("token", response);
+        setToken(response.token);
         setAuthenticated(true);
         navigate("/user-table");
       })
-      .catch((error) => console.error("Login failed:", error.message));
+      .catch((error) => {
+        console.error("Login failed:", error.message);
+        setInvalid(true);
+      });
   };
 
   return (
@@ -90,6 +103,12 @@ const Login = () => {
           {error && (
             <div className="alert alert-danger mt-3" role="alert">
               Todos los campos son obligatorios.
+            </div>
+          )}
+          ,
+          {invalid && !error && (
+            <div className="alert alert-danger mt-3" role="alert">
+              Credenciales incorrectas.
             </div>
           )}
         </div>

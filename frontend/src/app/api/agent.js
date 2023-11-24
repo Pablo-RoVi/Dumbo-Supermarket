@@ -1,11 +1,9 @@
 import axios from "axios";
 
-let token = localStorage.getItem("token");
-
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
 axios.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${token}`;
+  config.headers.Authorization = `Bearer ${responseBody.token}`;
   return config;
 });
 
@@ -18,6 +16,10 @@ const requests = {
   delete: (url) => axios.delete(url).then(responseBody),
 };
 
-const agent = { requests, token };
+const Auth = {
+  login: (user) => requests.post("login", user).then(responseBody),
+};
+
+const agent = { requests, Auth };
 
 export default agent;
