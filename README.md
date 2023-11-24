@@ -85,7 +85,7 @@ Create two git bash terminals
   php artisan serve
   ```
 
-  - **Start the React frontend:**
+- **Start the React frontend:**
   ```bash
   cd frontend
   npm start
