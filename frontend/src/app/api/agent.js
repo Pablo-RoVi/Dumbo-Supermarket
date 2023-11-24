@@ -19,5 +19,5 @@ const requests = {
 };
 
 const agent = { requests, token };
- 
+
 export default agent;

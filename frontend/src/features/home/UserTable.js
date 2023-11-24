@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import agent from "../../app/api/agent";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import "../../app/styles/UserTable.css";
 
 // @ts-ignore
@@ -19,17 +19,18 @@ const UserTable = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return (
-    <div className="loading-spinner">
-      <div className="spinner-border spinner-color" role="status" />
-    </div>
-  );
+  if (loading)
+    return (
+      <div className="loading-spinner">
+        <div className="spinner-border spinner-color" role="status" />
+      </div>
+    );
 
   if (error) return <p>There was an error loading the clients</p>;
 
   const createClient = () => {
     Swal.fire({
-      title: 'Agregar cliente',
+      title: "Agregar cliente",
       html:
         '<input id="name" class="swal2-input" placeholder="Nombres">' +
         '<input id="lastNames" class="swal2-input" placeholder="Apellidos">' +
@@ -37,22 +38,32 @@ const UserTable = () => {
         '<input id="email" class="swal2-input" placeholder="Correo electrónico">' +
         '<input id="pointsEarned" class="swal2-input" placeholder="Cantidad de puntos">',
       focusConfirm: false,
-      confirmButtonText: 'Agregar',
-      confirmButtonColor: '#b7c62d',
+      confirmButtonText: "Agregar",
+      confirmButtonColor: "#b7c62d",
       preConfirm: () => {
-        const name = Swal.getPopup().querySelector('#name').value
-        const lastNames = Swal.getPopup().querySelector('#lastNames').value
-        const identification = Swal.getPopup().querySelector('#identification').value
-        const email = Swal.getPopup().querySelector('#email').value
-        const pointsEarned = Swal.getPopup().querySelector('#pointsEarned').value
+        const name = Swal.getPopup().querySelector("#name").value;
+        const lastNames = Swal.getPopup().querySelector("#lastNames").value;
+        const identification =
+          Swal.getPopup().querySelector("#identification").value;
+        const email = Swal.getPopup().querySelector("#email").value;
+        const pointsEarned =
+          Swal.getPopup().querySelector("#pointsEarned").value;
         if (!name || !lastNames || !identification || !email || !pointsEarned) {
-          Swal.showValidationMessage(`Por favor, ingrese todos los datos`)
+          Swal.showValidationMessage(`Por favor, ingrese todos los datos`);
         }
-        if(isNaN(pointsEarned)){
-          Swal.showValidationMessage(`Por favor, ingrese un valor numérico en el campo de cantidad de puntos`)
+        if (isNaN(pointsEarned)) {
+          Swal.showValidationMessage(
+            `Por favor, ingrese un valor numérico en el campo de cantidad de puntos`
+          );
         }
-        return { name: name, lastNames: lastNames, identification: identification, email: email, pointsEarned: pointsEarned }
-      }
+        return {
+          name: name,
+          lastNames: lastNames,
+          identification: identification,
+          email: email,
+          pointsEarned: pointsEarned,
+        };
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         agent.requests
@@ -69,35 +80,55 @@ const UserTable = () => {
             console.error("Error al crear al cliente:", error);
           });
       }
-    })
-  }
+    });
+  };
 
   const updateClient = (cli) => {
     Swal.fire({
-      title: 'Editar cliente',
+      title: "Editar cliente",
       html:
-      '<input id="name" class="swal2-input" placeholder="Nombres" value="' + cli.name + '">' +
-      '<input id="lastNames" class="swal2-input" placeholder="Apellidos" value="' + cli.lastNames + '">' +
-      '<input id="identification" class="swal2-input" placeholder="Identificación" value="' + cli.identification + '">' +
-      '<input id="email" class="swal2-input" placeholder="Correo electrónico" value="' + cli.email + '">' +
-      '<input id="pointsEarned" class="swal2-input" placeholder="Cantidad de puntos" value="' + cli.pointsEarned + '">',
+        '<input id="name" class="swal2-input" placeholder="Nombres" value="' +
+        cli.name +
+        '">' +
+        '<input id="lastNames" class="swal2-input" placeholder="Apellidos" value="' +
+        cli.lastNames +
+        '">' +
+        '<input id="identification" class="swal2-input" placeholder="Identificación" value="' +
+        cli.identification +
+        '">' +
+        '<input id="email" class="swal2-input" placeholder="Correo electrónico" value="' +
+        cli.email +
+        '">' +
+        '<input id="pointsEarned" class="swal2-input" placeholder="Cantidad de puntos" value="' +
+        cli.pointsEarned +
+        '">',
       focusConfirm: false,
-      confirmButtonText: 'Actualizar cliente',
-      confirmButtonColor: '#b7c62d',
+      confirmButtonText: "Actualizar cliente",
+      confirmButtonColor: "#b7c62d",
       preConfirm: () => {
-        const name = Swal.getPopup().querySelector('#name').value
-        const lastNames = Swal.getPopup().querySelector('#lastNames').value
-        const identification = Swal.getPopup().querySelector('#identification').value
-        const email = Swal.getPopup().querySelector('#email').value
-        const pointsEarned = Swal.getPopup().querySelector('#pointsEarned').value
+        const name = Swal.getPopup().querySelector("#name").value;
+        const lastNames = Swal.getPopup().querySelector("#lastNames").value;
+        const identification =
+          Swal.getPopup().querySelector("#identification").value;
+        const email = Swal.getPopup().querySelector("#email").value;
+        const pointsEarned =
+          Swal.getPopup().querySelector("#pointsEarned").value;
         if (!name || !lastNames || !identification || !email || !pointsEarned) {
-          Swal.showValidationMessage(`Por favor, ingrese todos los datos`)
+          Swal.showValidationMessage(`Por favor, ingrese todos los datos`);
         }
-        if(isNaN(pointsEarned)){
-          Swal.showValidationMessage(`Por favor, ingrese un valor numérico en el campo de cantidad de puntos`)
+        if (isNaN(pointsEarned)) {
+          Swal.showValidationMessage(
+            `Por favor, ingrese un valor numérico en el campo de cantidad de puntos`
+          );
         }
-        return { name: name, lastNames: lastNames, identification: identification, email: email, pointsEarned: pointsEarned }
-      }
+        return {
+          name: name,
+          lastNames: lastNames,
+          identification: identification,
+          email: email,
+          pointsEarned: pointsEarned,
+        };
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         agent.requests
@@ -114,18 +145,19 @@ const UserTable = () => {
             console.error("Error al actualizar al cliente:", error);
           });
       }
-    })
-  }
+    });
+  };
 
   const deleteClient = (identification) => {
     Swal.fire({
-      title: '¿Estás seguro que deseas eliminar al cliente ' + identification + '?',
-      icon: 'warning',
+      title:
+        "¿Estás seguro que deseas eliminar al cliente " + identification + "?",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonText: 'Sí',
-      confirmButtonColor: '#b7c62d',
-      cancelButtonText: 'No',
-      width: '70%',
+      confirmButtonText: "Sí",
+      confirmButtonColor: "#b7c62d",
+      cancelButtonText: "No",
+      width: "70%",
     }).then((result) => {
       if (result.isConfirmed) {
         // User clicked 'Sí'
@@ -147,7 +179,7 @@ const UserTable = () => {
         console.log("Eliminación cancelada por el usuario");
       }
     });
-  }
+  };
 
   const renderClients = () => {
     if (!clients) return null;
@@ -175,9 +207,9 @@ const UserTable = () => {
           >
             Editar
           </button>
-          <button 
-            type="button" 
-            className="btn btn-danger" 
+          <button
+            type="button"
+            className="btn btn-danger"
             onClick={() => deleteClient(cli.identification)}
           >
             Eliminar
@@ -216,9 +248,13 @@ const UserTable = () => {
         </table>
       </div>
       <div className="col-md-12">
-      <button type="button" className="btn btn-primary button-color" onClick={() => createClient()}>
+        <button
+          type="button"
+          className="btn btn-primary button-color"
+          onClick={() => createClient()}
+        >
           Agregar cliente
-      </button>
+        </button>
       </div>
     </div>
   );
