@@ -10,8 +10,7 @@ use App\Models\RoleUser;
 class UserController extends Controller{
 
     // Return all client users
-    public function index()
-    {
+    public function index() {
         // Find role client
         $role = Role::where('name', 'client')->first();
 
@@ -179,23 +178,6 @@ class UserController extends Controller{
         return response()->json([
             'message' => 'User deleted successfully',
         ]);
-
-    }
-
-    // Show user by identification or email
-    public function show($identification) {
-
-        // Find user by identification or email
-        $user = User::where('identification', $identification)->orWhere('email', $identification)->first();
-
-        // Verify if user exists
-        if (!$user) {
-            return response()->json([
-                'message' => 'User not exists',
-            ], 409);
-        }
-
-        return $user;
 
     }
 

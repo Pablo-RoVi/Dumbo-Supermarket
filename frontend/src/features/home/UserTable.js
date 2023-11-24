@@ -9,6 +9,7 @@ const UserTable = () => {
   const [clients, setClients] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     agent.requests
@@ -18,7 +19,11 @@ const UserTable = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return (
+    <div className="loading-spinner">
+      <div className="spinner-border spinner-color" role="status" />
+    </div>
+  );
 
   if (error) return <p>There was an error loading the clients</p>;
 
@@ -146,7 +151,14 @@ const UserTable = () => {
 
   const renderClients = () => {
     if (!clients) return null;
-    return clients.map((cli, index) => (
+
+    const filteredClients = clients.filter(
+      (cli) =>
+        cli.identification.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        cli.email.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    return filteredClients.map((cli, index) => (
       <tr key={index + 1}>
         <th scope="row">{index + 1}</th>
         <td>{cli.name}</td>
@@ -178,6 +190,16 @@ const UserTable = () => {
   return (
     <div className="container">
       <div className="row">
+        <div className="col-md-6">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Buscar por identificación o correo electrónico"
+            style={{ marginBottom: "2%", marginTop: "5%" }}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
         <table className="table">
           <thead>
             <tr>

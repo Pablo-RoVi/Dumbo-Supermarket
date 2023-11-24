@@ -1,18 +1,32 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Navigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { Routes as Router, Navigate, Outlet, Route } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import Home from '../../features/home/Home';
 import Login from '../../features/auth/Login';
 import UserTable from '../../features/home/UserTable';
+
+const PrivateRoutes = () => {
+  const authenticated = localStorage.getItem('token');
+  if (!authenticated) {
+    return <Navigate to="/" replace />;
+  }
+  return <Outlet />;
+};
 
 const Routes = () => {
   return (
     <Router>
-      <Navbar />
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/users" element={<UserTable />} />
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route>
+        <Route element={<PrivateRoutes />}>
+          <Route path="/user-table" element={
+            <div>
+              <Navbar />
+              <UserTable />
+            </div>
+          } />
+        </Route>
+      </Route>
+      <Route path="/" element={<Login />} />
     </Router>
   );
 };

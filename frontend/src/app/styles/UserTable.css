@@ -8,3 +8,14 @@
     background-color: #b7c62d;
     color: white;
 }
+
+.spinner-color {
+    color: #018f45;
+}
+
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh; /* El 50% de la altura de la pantalla */
+}

@@ -27,5 +27,3 @@ Route::post('users', [\App\Http\Controllers\UserController::class, 'store']);
 Route::put('users/{identification}', [\App\Http\Controllers\UserController::class, 'update']);
 
 Route::delete('users/{identification}', [\App\Http\Controllers\UserController::class, 'destroy']);
-
-Route::get('users/{identification}', [\App\Http\Controllers\UserController::class, 'show']);

@@ -2,8 +2,23 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as React from "react";
 import "../styles/Navbar.css";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import agent from "../api/agent";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+
+  const { authenticated, setAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    agent.token = "";
+    localStorage.removeItem("token");
+    setAuthenticated(false);
+    navigate("/");
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-primary-green" style={{width: "100%"}}>
       <div className="container-fluid">
@@ -17,7 +32,7 @@ const Navbar = () => {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">LOGIN</a>
+              <button className="nav-link active" aria-current="page" onClick={() => handleLogout()}>CERRAR SESIÓN</button>
             </li>
           </ul>
         </div>
