@@ -56,7 +56,7 @@ Developing a web-based user management system for Dumbo Supermercados Ltda. Feat
 
 8. **Migrate the Database:**
    ```bash
-   php artisan migrate
+   php artisan migrate --seed
    ```
 
 ## Running the Project
