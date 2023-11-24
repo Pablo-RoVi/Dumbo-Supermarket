@@ -1,5 +1,4 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import { Routes as Router, Navigate, Outlet, Route } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Login from '../../features/auth/Login';

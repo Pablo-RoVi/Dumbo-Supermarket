@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
 
-  const { authenticated, setAuthenticated } = useContext(AuthContext);
+  const { setAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
