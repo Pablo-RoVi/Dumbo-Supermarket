@@ -59,11 +59,36 @@ Developing a web-based user management system for Dumbo Supermercados Ltda. Feat
    php artisan migrate --seed
    ```
 
+9. **Set the JWT Secret Key:**
+   ```bash
+   php artisan jwt:secret
+   ```
+
+10. **Verify Composer Dependencies:**
+   ```bash
+   composer require tymon/jwt-auth:^2.0
+   ```
+
+11. **Clear Configuration Cache:**
+   ```bash
+   php artisan config:clear
+   ```
+
 ## Running the Project
+
+Create two git bash terminals
+
 
 - **Start the Laravel Server:**
   ```bash
+  cd backend
   php artisan serve
+  ```
+
+  - **Start the React frontend:**
+  ```bash
+  cd frontend
+  npm start
   ```
 
 - **Access the Frontend:**
