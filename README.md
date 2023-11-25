@@ -54,17 +54,23 @@ Developing a web-based user management system for Dumbo Supermercados Ltda. Feat
    php artisan key:generate
    ```
 
-8. **Migrate the Database:**
+   If you got problems with autoload file do:
+   ```bash
+   composer dump-autoload
+   php artisan key:generate
+   ```
+
+9. **Migrate the Database:**
    ```bash
    php artisan migrate --seed
    ```
 
-9. **Set the JWT Secret Key:**
+10. **Set the JWT Secret Key:**
    ```bash
    php artisan jwt:secret
    ```
 
-10. **Verify Composer Dependencies:**
+11. **Verify Composer Dependencies:**
    ```bash
    composer require tymon/jwt-auth:^2.0
    ```
