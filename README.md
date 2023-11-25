@@ -81,13 +81,13 @@ Create two git bash terminals
 
 - **Start the Laravel Server:**
   ```bash
-  cd backend
+  cd Dumbo-Supermarket/backend
   php artisan serve
   ```
 
 - **Start the React frontend:**
   ```bash
-  cd frontend
+  cd Dumbo-Supermarket/frontend
   npm start
   ```
 
