@@ -1,21 +1,25 @@
+/* Styles for a form group container */
 .form-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px; /* Ajusta el margen según sea necesario */
+    margin-bottom: 15px; /* Adjusts the margin as needed */
 }
 
+/* Styles for buttons with a specific color */
 .button-color {
-    background-color: #b7c62d;
-    color: white;
+    background-color: #b7c62d; /* Set background color to a specific shade of green */
+    color: white; /* Set text color to white for better contrast */
 }
 
+/* Styles for a spinner with a specific color */
 .spinner-color {
-    color: #018f45;
+    color: #018f45; /* Set color to a primary green shade */
 }
 
+/* Styles for a loading spinner container */
 .loading-spinner {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh; /* El 50% de la altura de la pantalla */
+    height: 50vh; /* Set the height to 50% of the screen height */
 }

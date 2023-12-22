@@ -1,9 +1,11 @@
+/* Styles for a primary green-colored navbar */
 .navbar-primary-green {
-  background-color: #018f45;
-  color: white;
+  background-color: #018f45; /* Set background color to a primary green shade */
+  color: white; /* Set text color to white for better contrast */
 }
 
+/* Styles for the text color of elements within the primary green navbar */
 .navbar-primary-green .navbar-brand,
 .navbar-primary-green .navbar-nav .nav-link {
-  color: white !important;
+  color: white !important; /* Set text color to white for consistency */
 }
