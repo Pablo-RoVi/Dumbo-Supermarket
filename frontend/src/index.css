@@ -1,12 +1,27 @@
+/**
+ * Global styles for the entire application.
+ * Resets margin, sets default font family, and defines code font.
+ */
+
+/* Resetting margin to ensure consistency across browsers */
 body {
   margin: 0;
+}
+
+/* Setting default font family for better cross-browser compatibility */
+body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+}
+
+/* Improving font rendering on webkit and macOS */
+body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Defining the font family for code elements */
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
