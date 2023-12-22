@@ -3,8 +3,9 @@ import agent from "../../app/api/agent";
 import Swal from "sweetalert2";
 import "../../app/styles/UserTable.css";
 
-// @ts-ignore
-
+/**
+ * UserTable component displays a table of clients with CRUD operations.
+ */
 const UserTable = () => {
   // States
   const [clients, setClients] = useState(null);
@@ -32,13 +33,21 @@ const UserTable = () => {
   // Error state
   if (error) return <p>There was an error loading the clients</p>;
 
+  /**
+   * Verifies the information entered in the SweetAlert2 dialogs.
+   * @param {string} name - User's name.
+   * @param {string} lastNames - User's last names.
+   * @param {string} identification - User's identification.
+   * @param {string} email - User's email.
+   * @param {string} pointsEarned - User's points earned.
+   */
   const verifyInfo = (name, lastNames, identification, email, pointsEarned) => {
     // Validate inputs are not empty
     if (!name || !lastNames || !identification || !email || !pointsEarned) {
       Swal.showValidationMessage(`Por favor, ingrese todos los datos`);
     }
 
-    // Verify if name and lastNames has only letters
+    // Verify if name and lastNames have only letters
     if (!/^[a-zA-Z ]+$/.test(name) || !/^[a-zA-Z ]+$/.test(lastNames)) {
       Swal.showValidationMessage(
         `Por favor, ingrese solo letras en los campos de nombres y apellidos`
@@ -74,7 +83,9 @@ const UserTable = () => {
     }
   };
 
-  // Create client
+  /**
+   * Creates a new client using SweetAlert2 dialog.
+   */
   const createClient = () => {
     // Create dialog with SweetAlert2
     Swal.fire({
@@ -129,7 +140,10 @@ const UserTable = () => {
     });
   };
 
-  // Update client
+  /**
+   * Updates an existing client using SweetAlert2 dialog.
+   * @param {object} cli - The client to be updated.
+   */
   const updateClient = (cli) => {
     // Create dialog with SweetAlert2
     Swal.fire({
@@ -194,7 +208,10 @@ const UserTable = () => {
     });
   };
 
-  // Delete client
+  /**
+   * Deletes an existing client using SweetAlert2 dialog.
+   * @param {string} identification - The identification of the client to be deleted.
+   */
   const deleteClient = (identification) => {
     // Create dialog with SweetAlert2
     Swal.fire({
@@ -229,7 +246,10 @@ const UserTable = () => {
     });
   };
 
-  // Render clients
+  /**
+   * Renders the clients in a table based on the search term.
+   * @returns {JSX.Element} - Table body with client data.
+   */
   const renderClients = () => {
     // Validate clients is not null
     if (!clients) return null;

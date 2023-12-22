@@ -2,8 +2,10 @@ import React, { useState, useContext } from "react";
 import agent from "../../app/api/agent";
 import { AuthContext } from "../../app/context/AuthContext";
 import { useNavigate } from "react-router-dom";
-// @ts-ignore
 
+/**
+ * Login component for user authentication.
+ */
 const Login = () => {
   // States
   const { setAuthenticated, setToken } = useContext(AuthContext);
@@ -17,6 +19,10 @@ const Login = () => {
   const [error, setError] = useState(false);
   const [invalid, setInvalid] = useState(false);
 
+  /**
+   * Handles the login process.
+   * @param {Event} e - The submit event.
+   */
   const handleLogin = (e) => {
     // Prevent page reload
     e.preventDefault();
@@ -105,7 +111,6 @@ const Login = () => {
               Todos los campos son obligatorios.
             </div>
           )}
-          ,
           {invalid && !error && (
             <div className="alert alert-danger mt-3" role="alert">
               Credenciales incorrectas.
